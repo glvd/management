@@ -29,8 +29,7 @@ type Model struct {
 	model `xorm:"extends"`
 }
 
-// DatabaseConfig ...
-type dbConfig struct {
+type DBConfig struct {
 	showSQL      bool
 	showExecTime bool
 	useCache     bool
@@ -67,7 +66,7 @@ type ISync interface {
 type FindResult func(rows *xorm.Rows) error
 
 // ConfigOptions ...
-type ConfigOptions func(config *dbConfig)
+type ConfigOptions func(config *DBConfig)
 
 var (
 	_              = mysql.Config{}
@@ -78,28 +77,28 @@ var (
 
 // ShowSQLOptions ...
 func ShowSQLOptions(b bool) ConfigOptions {
-	return func(config *dbConfig) {
+	return func(config *DBConfig) {
 		config.showSQL = b
 	}
 }
 
 // UseCacheOptions ...
 func UseCacheOptions(b bool) ConfigOptions {
-	return func(config *dbConfig) {
+	return func(config *DBConfig) {
 		config.useCache = b
 	}
 }
 
 // SchemaOption ...
 func SchemaOption(s string) ConfigOptions {
-	return func(config *dbConfig) {
+	return func(config *DBConfig) {
 		config.schema = s
 	}
 }
 
 // LoginOption ...
 func LoginOption(addr, user, pass string) ConfigOptions {
-	return func(config *dbConfig) {
+	return func(config *DBConfig) {
 		config.addr = addr
 		config.username = user
 		config.password = pass
@@ -108,7 +107,7 @@ func LoginOption(addr, user, pass string) ConfigOptions {
 
 // InitMySQL ...
 func InitMySQL(ops ...ConfigOptions) (*xorm.Engine, error) {
-	config := &dbConfig{
+	config := &DBConfig{
 		showSQL:  true,
 		useCache: true,
 		dbType:   "mysql",
@@ -143,12 +142,12 @@ func InitMySQL(ops ...ConfigOptions) (*xorm.Engine, error) {
 }
 
 // Source ...
-func (d *dbConfig) source() string {
+func (d *DBConfig) source() string {
 	return fmt.Sprintf(mysqlStatement,
 		d.username, d.password, d.addr, d.schema, d.location, d.charset)
 }
 
-func (d *dbConfig) dbSource() string {
+func (d *DBConfig) dbSource() string {
 	return fmt.Sprintf(mysqlStatement,
 		d.username, d.password, d.addr, "", d.location, d.charset)
 }
