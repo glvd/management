@@ -31,17 +31,18 @@ type Model struct {
 }
 
 type DBConfig struct {
-	showSQL      bool
-	showExecTime bool
-	useCache     bool
-	dbType       string
-	addr         string
-	username     string
-	password     string
-	schema       string
-	charset      string
-	prefix       string
-	location     string
+	ShowSQL      bool   `json:"show_sql"`
+	ShowExecTime bool   `json:"show_exec_time"`
+	UseCache     bool   `json:"use_cache"`
+	Create       bool   `json:"create"`
+	DBType       string `json:"db_type"`
+	Addr         string `json:"addr"`
+	Username     string `json:"username"`
+	Password     string `json:"password"`
+	Schema       string `json:"schema"`
+	Charset      string `json:"charset"`
+	Prefix       string `json:"prefix"`
+	Location     string `json:"location"`
 }
 
 // BeforeInsert ...
