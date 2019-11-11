@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/go-sql-driver/mysql"
+	"github.com/goextension/log"
 	"github.com/google/uuid"
 	"github.com/mattn/go-sqlite3"
 	"github.com/xormsharp/xorm"
