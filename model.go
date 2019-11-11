@@ -106,6 +106,10 @@ func LoginOption(addr, user, pass string) ConfigOptions {
 	}
 }
 
+func MakeDBInstance(config DBConfig) (*xorm.Engine, error) {
+	return &xorm.Engine{}, nil
+}
+
 // InitMySQL ...
 func InitMySQL(ops ...ConfigOptions) (*xorm.Engine, error) {
 	config := &DBConfig{
