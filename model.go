@@ -123,6 +123,7 @@ func MakeDBInstance(config DBConfig) (engine *xorm.Engine, e error) {
 	if config.ShowExecTime {
 		engine.ShowExecTime()
 	}
+	return
 }
 
 // InitMySQL ...

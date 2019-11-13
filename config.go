@@ -3,10 +3,17 @@ package management
 // DefaultConfig ...
 func DefaultConfig() DBConfig {
 	return DBConfig{
-		DBType:   "sqlite3",
-		Schema:   "deploy",
-		Username: "",
-		Password: "",
-		Addr:     ".",
+		ShowSQL:      true,
+		ShowExecTime: true,
+		UseCache:     false,
+		Create:       false,
+		DBType:       "sqlite3",
+		Addr:         ".",
+		Username:     "",
+		Password:     "",
+		Schema:       "deploy",
+		Charset:      "",
+		Prefix:       "",
+		Location:     "",
 	}
 }
