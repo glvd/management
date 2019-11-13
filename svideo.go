@@ -1,7 +1,7 @@
 package management
 
 type SVideo struct {
-	Model        `xorm:"extends" json:"-"`
+	model        `xorm:"extends" json:"-"`
 	FindNo       string   `json:"-"`                              //查找号
 	Bangumi      string   `xorm:"bangumi" json:"bangumi"`         //番組
 	Intro        string   `xorm:"varchar(2048)" json:"intro"`     //简介
@@ -36,7 +36,7 @@ type SVideo struct {
 	Uncensored   bool     `json:"uncensored"`                     //有码,无码
 }
 
-func (SVideo) TableName() string {
+func (s SVideo) TableName() string {
 	return "video"
 }
 

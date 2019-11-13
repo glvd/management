@@ -8,9 +8,9 @@ import (
 )
 
 func init() {
-	log.Register(trait.NewZapFileSugar("zap.log"))
+	log.Register(trait.NewZapSugar())
 	cfg := DefaultConfig()
-	RegisterDatabase(MustDatabase(initSQLite3(cfg)))
+	RegisterDatabase(MustDatabase(MakeDBInstance(cfg)))
 	e := SyncTable()
 	if e != nil {
 		panic(e)
@@ -30,16 +30,18 @@ func TestInsertOrUpdate(t *testing.T) {
 
 // TestFindAll ...
 func TestFindAll(t *testing.T) {
-	rows, e := _database.Table(SVideo{}).Rows(&SVideo{})
+	var v SVideo
+	rows, e := _database.Table(v.TableName()).Rows(&v)
 	if e != nil {
 		t.Fatal(e)
 	}
-
+	count := 0
 	for rows.Next() {
-		var v SVideo
 		if err := rows.Scan(&v); err != nil {
 			t.Fatal(err)
 		}
+		count++
 		log.Info(v)
 	}
+	log.Info("total:", count)
 }
