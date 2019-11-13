@@ -112,34 +112,34 @@ func MakeDBInstance(config DBConfig) (*xorm.Engine, error) {
 }
 
 // InitMySQL ...
-func InitMySQL(ops ...ConfigOptions) (*xorm.Engine, error) {
+func initMySQL(ops ...ConfigOptions) (*xorm.Engine, error) {
 	config := &DBConfig{
-		showSQL:  true,
-		useCache: true,
-		dbType:   "mysql",
-		addr:     "localhost",
-		username: "root",
-		password: "111111",
-		schema:   "glvd",
-		location: url.QueryEscape("Asia/Shanghai"),
-		charset:  "utf8mb4",
-		prefix:   "",
+		ShowSQL:  true,
+		UseCache: true,
+		DBType:   "mysql",
+		Addr:     "localhost",
+		Username: "root",
+		Password: "111111",
+		Schema:   "glvd",
+		Location: url.QueryEscape("Asia/Shanghai"),
+		Charset:  "utf8mb4",
+		Prefix:   "",
 	}
 	for _, op := range ops {
 		op(config)
 	}
-	dbEngine, e := xorm.NewEngine(config.dbType, config.dbSource())
+	dbEngine, e := xorm.NewEngine(config.DBType, config.dbSource())
 	if e != nil {
 		return nil, e
 	}
 	defer dbEngine.Close()
-	sql := fmt.Sprintf(createDatabase, config.schema)
+	sql := fmt.Sprintf(createDatabase, config.Schema)
 
 	_, e = dbEngine.DB().Exec(sql)
 	if e == nil {
-		log.Infow("create database", "database", config.schema)
+		log.Infow("create database", "database", config.Schema)
 	}
-	engine, e := xorm.NewEngine(config.dbType, config.source())
+	engine, e := xorm.NewEngine(config.DBType, config.source())
 	if e != nil {
 		return nil, e
 	}
