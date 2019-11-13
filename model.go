@@ -189,14 +189,13 @@ func liteSource(name string) string {
 	return fmt.Sprintf("file:%s?cache=shared&mode=rwc&_journal_mode=WAL", name)
 }
 
-// InitSQLite3 ...
-func InitSQLite3(name string) (eng *xorm.Engine, e error) {
-	eng, e = xorm.NewEngine("sqlite3", liteSource(name))
+func initSQLite3(config DBConfig) (*xorm.Engine, error) {
+	engine, e := xorm.NewEngine(config.DBType, liteSource(config.Schema+".db"))
 	if e != nil {
 		return nil, e
 	}
 
-	return eng, nil
+	return engine, nil
 }
 
 // MustDatabase ...

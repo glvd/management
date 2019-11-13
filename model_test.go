@@ -11,7 +11,7 @@ import (
 func init() {
 	log.Register(trait.NewZapFileSugar("zap.log"))
 
-	RegisterDatabase(MustDatabase(initMySQL()))
+	RegisterDatabase(MustDatabase(initSQLite3(DefaultConfig())))
 	e := SyncTable()
 	if e != nil {
 		panic(e)
