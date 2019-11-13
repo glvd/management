@@ -87,23 +87,23 @@ func ShowSQLOptions(b bool) ConfigOptions {
 // UseCacheOptions ...
 func UseCacheOptions(b bool) ConfigOptions {
 	return func(config *DBConfig) {
-		config.useCache = b
+		config.UseCache = b
 	}
 }
 
 // SchemaOption ...
 func SchemaOption(s string) ConfigOptions {
 	return func(config *DBConfig) {
-		config.schema = s
+		config.Schema = s
 	}
 }
 
 // LoginOption ...
 func LoginOption(addr, user, pass string) ConfigOptions {
 	return func(config *DBConfig) {
-		config.addr = addr
-		config.username = user
-		config.password = pass
+		config.Addr = addr
+		config.Username = user
+		config.Password = pass
 	}
 }
 
