@@ -1,14 +1,17 @@
 package management
 
 import (
-	"log"
 	"testing"
 
+	"github.com/godcong/go-trait"
+	"github.com/goextension/log"
 	"github.com/xormsharp/xorm"
 )
 
 func init() {
-	RegisterDatabase(MustDatabase(InitMySQL()))
+	log.Register(trait.NewZapFileSugar("zap.log"))
+
+	RegisterDatabase(MustDatabase(initMySQL()))
 	e := SyncTable()
 	if e != nil {
 		panic(e)
