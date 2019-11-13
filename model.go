@@ -80,7 +80,7 @@ var (
 // ShowSQLOptions ...
 func ShowSQLOptions(b bool) ConfigOptions {
 	return func(config *DBConfig) {
-		config.showSQL = b
+		config.ShowSQL = b
 	}
 }
 
@@ -150,12 +150,12 @@ func initMySQL(ops ...ConfigOptions) (*xorm.Engine, error) {
 // Source ...
 func (d *DBConfig) source() string {
 	return fmt.Sprintf(mysqlStatement,
-		d.username, d.password, d.addr, d.schema, d.location, d.charset)
+		d.Username, d.Password, d.Addr, d.Schema, d.Location, d.Charset)
 }
 
 func (d *DBConfig) dbSource() string {
 	return fmt.Sprintf(mysqlStatement,
-		d.username, d.password, d.addr, "", d.location, d.charset)
+		d.Username, d.Password, d.Addr, "", d.Location, d.Charset)
 }
 
 // ID ...
