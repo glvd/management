@@ -107,8 +107,22 @@ func LoginOption(addr, user, pass string) ConfigOptions {
 	}
 }
 
-func MakeDBInstance(config DBConfig) (*xorm.Engine, error) {
-	return &xorm.Engine{}, nil
+func MakeDBInstance(config DBConfig) (engine *xorm.Engine, e error) {
+	switch config.DBType {
+	case "mysql":
+		engine, e = initSQLite3(config)
+	case "sqlite3":
+		engine, e = initSQLite3(config)
+	}
+	if e != nil {
+		return nil, e
+	}
+	if config.ShowSQL {
+		engine.ShowSQL()
+	}
+	if config.ShowExecTime {
+		engine.ShowExecTime()
+	}
 }
 
 // InitMySQL ...

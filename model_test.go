@@ -5,13 +5,12 @@ import (
 
 	"github.com/godcong/go-trait"
 	"github.com/goextension/log"
-	"github.com/xormsharp/xorm"
 )
 
 func init() {
 	log.Register(trait.NewZapFileSugar("zap.log"))
-
-	RegisterDatabase(MustDatabase(initSQLite3(DefaultConfig())))
+	cfg := DefaultConfig()
+	RegisterDatabase(MustDatabase(initSQLite3(cfg)))
 	e := SyncTable()
 	if e != nil {
 		panic(e)
@@ -31,15 +30,16 @@ func TestInsertOrUpdate(t *testing.T) {
 
 // TestFindAll ...
 func TestFindAll(t *testing.T) {
-	e := FindAll(&Video{}, func(rows *xorm.Rows) error {
-		var v Video
-		if err := rows.Scan(&v); err != nil {
-			return err
-		}
-		log.Info(v)
-		return nil
-	}, 2, 0)
+	rows, e := _database.Table(SVideo{}).Rows(&SVideo{})
 	if e != nil {
 		t.Fatal(e)
+	}
+
+	for rows.Next() {
+		var v SVideo
+		if err := rows.Scan(&v); err != nil {
+			t.Fatal(err)
+		}
+		log.Info(v)
 	}
 }
