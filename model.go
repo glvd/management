@@ -30,6 +30,7 @@ type Model struct {
 	model `xorm:"extends"`
 }
 
+// DBConfig ...
 type DBConfig struct {
 	ShowSQL      bool   `json:"show_sql"`
 	ShowExecTime bool   `json:"show_exec_time"`
@@ -107,6 +108,7 @@ func LoginOption(addr, user, pass string) ConfigOptions {
 	}
 }
 
+// MakeDBInstance ...
 func MakeDBInstance(config DBConfig) (engine *xorm.Engine, e error) {
 	switch config.DBType {
 	case "mysql":

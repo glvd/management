@@ -37,6 +37,7 @@ type SVideo struct {
 	Uncensored   bool     `json:"uncensored"`                     //有码,无码
 }
 
+// TableName ...
 func (s SVideo) TableName() string {
 	return "video"
 }
