@@ -1,5 +1,6 @@
 package management
 
+//SVideo seed video define
 type SVideo struct {
 	model        `xorm:"extends" json:"-"`
 	FindNo       string   `json:"-"`                              //查找号
