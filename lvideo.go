@@ -1,6 +1,6 @@
 package management
 
-// LVideo ...
+// LVideo lvideo is a local base video info
 type LVideo struct {
 	Model        `xorm:"extends" json:"-"`
 	No           string   `xorm:"no" json:"no"`                       //番号
