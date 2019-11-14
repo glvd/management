@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-// Video ...
+// Video video is ipfs video info
 type Video struct {
 	Model        `xorm:"extends" json:"-"`
 	No           string   `xorm:"no" json:"no"`                       //番号
