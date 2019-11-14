@@ -1,6 +1,8 @@
 package management
 
 import (
+	"io/ioutil"
+
 	"github.com/gocacher/badger-cache"
 	"github.com/gocacher/cacher"
 )
@@ -12,4 +14,20 @@ var _cache = cache.NewBadgerCache(DefaultCachePath)
 // RegisterCache ...
 func RegisterCache() {
 	cacher.Register(_cache)
+}
+
+func CacheFile(hash, path string) error {
+	bys, e := ioutil.ReadFile(path)
+	if e != nil {
+		return e
+	}
+	e = _cache.Set(hash, bys)
+	if e != nil {
+		return e
+	}
+	return nil
+}
+
+func GetCache(hash string) ([]byte, error) {
+	return _cache.Get(hash)
 }
