@@ -2,7 +2,6 @@ package management
 
 import (
 	"fmt"
-	"net/url"
 	"reflect"
 	"time"
 
@@ -112,7 +111,7 @@ func LoginOption(addr, user, pass string) ConfigOptions {
 func MakeDBInstance(config DBConfig) (engine *xorm.Engine, e error) {
 	switch config.DBType {
 	case "mysql":
-		engine, e = initSQLite3(config)
+		engine, e = initMySQL(config)
 	case "sqlite3":
 		engine, e = initSQLite3(config)
 	}
@@ -129,22 +128,7 @@ func MakeDBInstance(config DBConfig) (engine *xorm.Engine, e error) {
 }
 
 // InitMySQL ...
-func initMySQL(ops ...ConfigOptions) (*xorm.Engine, error) {
-	config := &DBConfig{
-		ShowSQL:  true,
-		UseCache: true,
-		DBType:   "mysql",
-		Addr:     "localhost",
-		Username: "root",
-		Password: "111111",
-		Schema:   "glvd",
-		Location: url.QueryEscape("Asia/Shanghai"),
-		Charset:  "utf8mb4",
-		Prefix:   "",
-	}
-	for _, op := range ops {
-		op(config)
-	}
+func initMySQL(config DBConfig) (*xorm.Engine, error) {
 	dbEngine, e := xorm.NewEngine(config.DBType, config.dbSource())
 	if e != nil {
 		return nil, e
