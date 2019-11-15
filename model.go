@@ -129,17 +129,19 @@ func MakeDBInstance(config DBConfig) (engine *xorm.Engine, e error) {
 
 // InitMySQL ...
 func initMySQL(config DBConfig) (*xorm.Engine, error) {
-	dbEngine, e := xorm.NewEngine(config.DBType, config.dbSource())
-	if e != nil {
-		return nil, e
-	}
-	defer dbEngine.Close()
-	sql := fmt.Sprintf(createDatabase, config.Schema)
+	if config.Create {
+		dbEngine, e := xorm.NewEngine(config.DBType, config.dbSource())
+		if e != nil {
+			return nil, e
+		}
+		defer dbEngine.Close()
+		sql := fmt.Sprintf(createDatabase, config.Schema)
 
-	_, e = dbEngine.DB().Exec(sql)
-	if e == nil {
-		log.Infow("create database", "database", config.Schema)
-		return nil, e
+		_, e = dbEngine.DB().Exec(sql)
+		if e == nil {
+			log.Infow("create database", "database", config.Schema)
+			return nil, e
+		}
 	}
 	engine, e := xorm.NewEngine(config.DBType, config.source())
 	if e != nil {
