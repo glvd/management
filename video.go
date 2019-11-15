@@ -47,23 +47,6 @@ func init() {
 	registerTable(&Video{})
 }
 
-// BeforeInsert ...
-func (v *Video) BeforeInsert() {
-	v.Model.BeforeInsert()
-	if len(v.Role) == 0 {
-		v.Role = []string{}
-	}
-	if len(v.Alias) == 0 {
-		v.Alias = []string{}
-	}
-	if len(v.Tags) == 0 {
-		v.Tags = []string{}
-	}
-	if len(v.Sample) == 0 {
-		v.Sample = []string{}
-	}
-}
-
 // Sync ...
 func (v *Video) Sync() error {
 	return _database.Sync2(v)
