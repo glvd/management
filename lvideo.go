@@ -34,3 +34,8 @@ type LVideo struct {
 	Sample       []string `xorm:"json sample" json:"sample"`          //样板图
 	Uncensored   bool     `xorm:"uncensored" json:"uncensored"`       //有码,无码
 }
+
+// TableName ...
+func (l LVideo) TableName() string {
+	return "video"
+}
