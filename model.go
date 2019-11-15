@@ -139,6 +139,7 @@ func initMySQL(config DBConfig) (*xorm.Engine, error) {
 	_, e = dbEngine.DB().Exec(sql)
 	if e == nil {
 		log.Infow("create database", "database", config.Schema)
+		return nil, e
 	}
 	engine, e := xorm.NewEngine(config.DBType, config.source())
 	if e != nil {
