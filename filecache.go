@@ -3,17 +3,18 @@ package management
 import (
 	"io/ioutil"
 
-	"github.com/gocacher/badger-cache"
+	cache "github.com/gocacher/badger-cache"
 	"github.com/gocacher/cacher"
 )
 
 // DefaultCachePath ...
 var DefaultCachePath = "cache"
 
-var _cache = cache.NewBadgerCache(DefaultCachePath)
+var _cache cacher.Cacher
 
 // RegisterCache ...
 func RegisterCache() {
+	_cache = cache.NewBadgerCache(DefaultCachePath)
 	cacher.Register(_cache)
 }
 
