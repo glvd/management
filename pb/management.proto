@@ -1,0 +1,50 @@
+syntax = "proto3";
+package pb;
+
+
+service ManagementService {
+    rpc Video (VideoRequest) returns (VideoReply) {
+    }
+}
+
+enum VideoMode {
+    LocalMode = 0;
+    RemoteMode = 1;
+    DownloadMode = 2;
+}
+
+enum MessageType {
+    Add = 0;
+    AsyncAdd = 1;
+    Status = 2;
+    List = 3;
+    Delete = 4;
+}
+
+message Video {
+    string ID = 2;
+    repeated string video_path = 3;
+    string poster_path = 4;
+    string thumb_path = 5;
+    repeated string sample_path = 6;
+    string video_info = 7;
+}
+
+message VideoRequest {
+    MessageType msg = 1;
+    //    string ID = 3;
+}
+
+message VideoReply {
+    MessageType msg = 1;
+    int32 total = 2;
+    string error = 4;
+}
+
+message NodeRequest {
+    MessageType msg = 1;
+}
+
+message NodeReply {
+    MessageType msg = 1;
+}
